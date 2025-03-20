@@ -53,3 +53,7 @@ def Mandelbrot(textOption = True, spd = 0, color = "black"):
         turtle.update()
     # Note, takes a while after finishing before this happens, most likely slow load
     turtle.exitonclick()
+
+def KochSnowflake():
+    # temp
+    print()
