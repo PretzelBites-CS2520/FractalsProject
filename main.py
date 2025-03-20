@@ -4,8 +4,6 @@ import additional_features
 #also could maybe just throw everything into one file but it might get docked for poor organization or something
 
 def main():
-    # temp
-    #print()
     fractals.Mandelbrot(True, 0, "#2848ac")
 
 if __name__ == '__main__':
