@@ -15,4 +15,4 @@ Turtle Drawing Fractals Project for CS2520
 - *more here*
 ***
 ### Known Issues
-- 
+- May be difficult to make interactive GUI with just Turtle. Look into Tkinter
