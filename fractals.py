@@ -1,14 +1,16 @@
 import turtle
 import math
-#this file could be used for containing each of the fractal drawings, could maybe make each one have their own file if needed
-piX = (2.0 - (-2.0)) / 800
-piY = (2.0 - (-1.0)) / 600
 
 def MandelbrotHelper(z, c, n = 20):
     '''
     Recursive function to create Mandelbrot set
 
     Formula: Z_n+1 = (Z_n)^2 + C
+
+    Parameters:
+    z: complex number used in the formula
+    c: complex number used in the formula
+    n: number of times the recursive function occurs (higher -> more accurate)
     '''
     if abs(z) > 10 ** 12:
         return float("nan")
@@ -42,8 +44,8 @@ def Mandelbrot(textOption = True, spd = 0, color = "black"):
     # Uses helper function and draws the fractal
     for x1 in range(-400, 300, 2):
         for y1 in range(-400, 300, 2):
-            x2, y2 = x1 * piX, y1 * piY
-            m  = MandelbrotHelper(0, x2 + 1j * y2, 20)
+            x2, y2 = x1 * 0.005, y1 * 0.005
+            m  = MandelbrotHelper(0, 1j * y2 + x2)
             if not math.isnan(m.real):
                 # Cursor color
                 t.color("#000000")
