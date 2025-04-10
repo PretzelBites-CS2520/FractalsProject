@@ -56,6 +56,56 @@ def Mandelbrot(textOption = True, spd = 0, color = "black"):
     # Note, takes a while after finishing before this happens, most likely slow load
     turtle.exitonclick()
 
-def KochSnowflake():
-    # temp
-    print()
+def KochCurve(turtle, l, n = 7):
+    '''
+    Recursive function for drawing Koch Curves
+
+    Formula: make a koch curve on each of the sides of an equilateral triangle
+
+    Parameters:
+    turtle - turtle drawing operator
+    l - length of koch curve being drawn
+    n - number of times iterating, default is 7
+    '''
+    #basic idea for koch snowflake - start with equilateral triangle, remove the inner side and draw another equilateral triangle
+    #draw a koch curve for each part of the triangle
+    #in the recursive function p2 will some distance be above the midpoint of the line 
+    if n == 0:
+        turtle.forward(l)
+    else:
+        KochCurve(turtle, l / 3, n - 1)
+        turtle.left(60)
+        KochCurve(turtle, l / 3, n - 1)
+        turtle.right(120)
+        KochCurve(turtle, l / 3, n - 1)
+        turtle.left(60)
+        KochCurve(turtle, l / 3, n - 1)
+
+def KochSnowflake(color = "black"):
+    '''
+    Creates a Koch Snowflake fractal
+
+    Parameters:
+    color (string): Changes the color of the lines in the fractal
+    '''
+    
+    # Setup of the canvas
+    turtle.tracer(0, 50)
+    turtle.setup(800, 600)
+    turtle.bgcolor("#FFFFFF")
+    turtle.title("Koch Snowflake")
+
+    t = turtle.Turtle()
+    t.color(color)
+    t.speed(0)
+    t.penup()
+    t.goto(-150, 100)
+    t.setheading(0)
+    t.pendown()
+
+    for _ in range(3):
+        KochCurve(t, 300, 5)
+        t.right(120)
+
+    t.hideturtle()
+    turtle.exitonclick()
