@@ -4,4 +4,4 @@ import random
 import tkinter
 
 def randomizeColor():
-    return "#" + hex(random.randrange(0, 2 ** 24))[2:]
+    return "#{:06x}".format(random.randrange(0, 2 ** 24))

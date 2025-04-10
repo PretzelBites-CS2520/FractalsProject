@@ -17,4 +17,4 @@ Turtle Drawing Fractals Project for CS2520
 ***
 ### Known Issues
 - May be difficult to make interactive GUI with just Turtle. Look into Tkinter
-- Sometimes random color generation creates strings that cause errors ex: bad color string: #f7c5a
+- ~~Sometimes random color generation creates strings that cause errors ex: bad color string: #f7c5a~~
