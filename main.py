@@ -5,7 +5,7 @@ import additional_features as features
 
 def main():
     #fractals.Mandelbrot(True, 0, features.randomizeColor())
-    fractals.KochSnowflake(features.randomizeColor())
+    fractals.KochSnowflake(features.randomizeColor(), 3)
 
 if __name__ == '__main__':
     main()

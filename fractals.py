@@ -81,12 +81,13 @@ def KochCurve(turtle, l, n = 7):
         turtle.left(60)
         KochCurve(turtle, l / 3, n - 1)
 
-def KochSnowflake(color = "black"):
+def KochSnowflake(color = "black", iterations = 3):
     '''
     Creates a Koch Snowflake fractal
 
     Parameters:
     color (string): Changes the color of the lines in the fractal
+    iterations (int): number of recursions that the fractal will go through
     '''
     
     # Setup of the canvas
@@ -104,8 +105,12 @@ def KochSnowflake(color = "black"):
     t.pendown()
 
     for _ in range(3):
-        KochCurve(t, 300, 5)
+        KochCurve(t, 300, iterations)
         t.right(120)
 
+    t.goto(-150, 100)
+    t.setheading(0)
+
     t.hideturtle()
+    turtle.update()
     turtle.exitonclick()
