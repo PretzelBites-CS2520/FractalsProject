@@ -16,3 +16,4 @@ Turtle Drawing Fractals Project for CS2520
 ***
 ### Known Issues
 - May be difficult to make interactive GUI with just Turtle. Look into Tkinter
+- koch snowflake implementation doesnt necessarily work as it should, looks fine for higher iterations but lower iterations dont work properly
