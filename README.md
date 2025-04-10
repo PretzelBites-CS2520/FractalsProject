@@ -8,7 +8,8 @@ Turtle Drawing Fractals Project for CS2520
   - <ins>optional</ins>: Randomly generated fractals
 - User customization
   - GUI for user to select the type of fractal
-  - Color, size, scale, background
+  - Color, size, scale, background, # of iterations
+  - <ins>optional</ins>: a way to choose which fractal through a separate "page" (with images of the fractals)
   - <ins>optional</ins>: ability to zoom
 - messages / text
 - more interactive options

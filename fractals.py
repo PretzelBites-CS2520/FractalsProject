@@ -1,6 +1,21 @@
 import turtle
 import math
 
+def variables(default, min, max):
+    '''
+    (probably temporary) Method of getting user input for number of iterations
+
+    Parameters:
+    default: default value
+    min: min value
+    max: max value
+    '''
+    screen = turtle.Screen()
+    iterations = screen.numinput("Iterations", f"Number of recursive iterations:\n({min} - {max})", default, min, max)
+    if iterations is None:
+        exit()
+    return int(iterations)
+
 def MandelbrotHelper(z, c, n = 20):
     '''
     Recursive function to create Mandelbrot set
@@ -41,11 +56,12 @@ def Mandelbrot(textOption = True, spd = 0, color = "black"):
         t.setposition(0, 250)
         t.write("Mandelbrot Set\nFormula: Z_n+1 = (Z_n)^2 + C", align = "center", font = ('Arial', 12, 'bold'))
     
+    iterations = variables(20, 15, 500)
     # Uses helper function and draws the fractal
     for x1 in range(-400, 300, 2):
         for y1 in range(-400, 300, 2):
             x2, y2 = x1 * 0.005, y1 * 0.005
-            m  = MandelbrotHelper(0, 1j * y2 + x2)
+            m  = MandelbrotHelper(0, 1j * y2 + x2, iterations)
             if not math.isnan(m.real):
                 # Cursor color
                 t.color("#000000")
@@ -89,7 +105,6 @@ def KochSnowflake(color = "black", iterations = 3):
     color (string): Changes the color of the lines in the fractal
     iterations (int): number of recursions that the fractal will go through
     '''
-    
     # Setup of the canvas
     turtle.tracer(0, 50)
     turtle.setup(800, 600)
@@ -103,7 +118,9 @@ def KochSnowflake(color = "black", iterations = 3):
     t.goto(-150, 100)
     t.setheading(0)
     t.pendown()
-
+    
+    # (TEMPORARY) Ideally find a place in additional_features or interactive GUI for iterations
+    iterations = variables(3, 2, 7)
     for _ in range(3):
         KochCurve(t, 300, iterations)
         t.right(120)
@@ -114,3 +131,6 @@ def KochSnowflake(color = "black", iterations = 3):
     t.hideturtle()
     turtle.update()
     turtle.exitonclick()
+
+def SierpinskiTriangle():
+    print() #temp
