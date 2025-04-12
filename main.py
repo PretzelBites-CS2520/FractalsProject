@@ -4,22 +4,32 @@ import turtle
 #main file for running the program, could use this to contain the gui stuff as well
 #also could maybe just throw everything into one file but it might get docked for poor organization or something
 
+# note: if creating separate page for user to choose, maybe add a parameter (like int or char) for a case/switch branch statement
 def draw():
-    #fractals.Mandelbrot(True, 0, features.randomizeColor())
-    fractals.KochSnowflake(features.randomizeColor(), 3)
+    '''
+    Draws a specified fractal
+    '''
+    fractals.Mandelbrot(True, 0, features.randomize_color())
+    #fractals.KochSnowflake(features.randomize_color(), 3)
 
 def reset():
+    '''
+    Resets the canvas
+    '''
     fractals.stop = True
     turtle.clearscreen()
     setup()
 
 def setup():
-    features.destroyButton()
+    '''
+    Sets up all the buttons on the canvas
+    '''
+    features.destroy_button()
 
-    features.makeButton(-350, -275, "Draw", draw)
-    features.makeButton(-250, -275, "Reset", reset)
-    features.makeButton(-150, -275, "Invert", features.invert)
-    features.makeButton(-350, -225, "Exit", exit)
+    features.make_button(-350, -275, "Draw", draw)
+    features.make_button(-250, -275, "Reset", reset)
+    features.make_button(-150, -275, "Invert", features.invert)
+    features.make_button(-350, -225, "Exit", exit)
 
 def main():
     screen = turtle.Screen()

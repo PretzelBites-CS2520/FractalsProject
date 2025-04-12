@@ -30,7 +30,7 @@ def MandelbrotHelper(z, c, n = 20):
     Parameters:
     z: complex number used in the formula
     c: complex number used in the formula
-    n: number of times the recursive function occurs (higher -> more accurate)
+    n (int): number of times the recursive function occurs (higher -> more accurate)
     '''
     if abs(z) > 10 ** 12:
         return float("nan")
