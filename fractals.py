@@ -1,5 +1,8 @@
 import turtle
 import math
+import additional_features as features
+
+stop = False
 
 def variables(default, min, max):
     '''
@@ -10,10 +13,12 @@ def variables(default, min, max):
     min: min value
     max: max value
     '''
+    global stop
     screen = turtle.Screen()
     iterations = screen.numinput("Iterations", f"Number of recursive iterations:\n({min} - {max})", default, min, max)
     if iterations is None:
-        exit()
+        stop = True
+        return None
     return int(iterations)
 
 def MandelbrotHelper(z, c, n = 20):
@@ -43,6 +48,9 @@ def Mandelbrot(textOption = True, spd = 0, color = "black"):
     spd (int): An integer from 1-10 (or 0) for the drawing speed of the turtle
     color (string): Changes the color of the lines in the fractal
     '''
+    global stop
+    stop = False
+
     # Setup of the canvas
     turtle.tracer(spd, 50)
     turtle.setup(800, 600)
@@ -50,16 +58,25 @@ def Mandelbrot(textOption = True, spd = 0, color = "black"):
     turtle.title("Mandelbrot Set")
     t = turtle.Turtle()
     t.penup()
+    t.hideturtle()
 
     # Writes text if parameter boolean is true. Title of fractal and formula
     if textOption:
-        t.setposition(0, 250)
-        t.write("Mandelbrot Set\nFormula: Z_n+1 = (Z_n)^2 + C", align = "center", font = ('Arial', 12, 'bold'))
-    
+        text = "Mandelbrot Set\nFormula: Z_n+1 = (Z_n)^2 + C"
+        features.write(text)
+        features.setText(text)
+
     iterations = variables(20, 15, 500)
+    if stop or iterations is None:
+        return
+
     # Uses helper function and draws the fractal
     for x1 in range(-400, 300, 2):
+        if stop:
+            return
         for y1 in range(-400, 300, 2):
+            if stop:
+                return
             x2, y2 = x1 * 0.005, y1 * 0.005
             m  = MandelbrotHelper(0, 1j * y2 + x2, iterations)
             if not math.isnan(m.real):
@@ -69,8 +86,6 @@ def Mandelbrot(textOption = True, spd = 0, color = "black"):
                 t.dot(2.4, color)
                 t.goto(x1, y1)
         turtle.update()
-    # Note, takes a while after finishing before this happens, most likely slow load
-    turtle.exitonclick()
 
 def KochCurve(turtle, l, n = 7):
     '''
@@ -105,6 +120,9 @@ def KochSnowflake(color = "black", iterations = 3):
     color (string): Changes the color of the lines in the fractal
     iterations (int): number of recursions that the fractal will go through
     '''
+    global stop
+    stop = False
+
     # Setup of the canvas
     turtle.tracer(0, 50)
     turtle.setup(800, 600)
@@ -121,7 +139,12 @@ def KochSnowflake(color = "black", iterations = 3):
     
     # (TEMPORARY) Ideally find a place in additional_features or interactive GUI for iterations
     iterations = variables(3, 2, 7)
+    if stop or iterations is None:
+        return
+
     for _ in range(3):
+        if stop:
+            return
         KochCurve(t, 300, iterations)
         t.right(120)
 
@@ -130,7 +153,6 @@ def KochSnowflake(color = "black", iterations = 3):
 
     t.hideturtle()
     turtle.update()
-    turtle.exitonclick()
 
 def SierpinskiTriangle():
     print() #temp

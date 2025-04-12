@@ -17,6 +17,6 @@ Turtle Drawing Fractals Project for CS2520
 ***
 ### Known Issues
 - May be difficult to make interactive GUI with just Turtle. Look into Tkinter
-- When pressing cancel on reset button, it conntinues from last turtle position
+- ~~When pressing cancel on reset button, it conntinues from last turtle position~~
 - Reset button makes fractal generation noticeably slower
 - ~~Sometimes random color generation creates strings that cause errors ex: bad color string: #f7c5a~~
