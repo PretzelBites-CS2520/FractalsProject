@@ -72,11 +72,11 @@ def invert():
     if inv:
         set_bg("#FFFFFF")
         if textOption:
-            write(inv)
+            write(inv, txt)
         inv = False
     else:
         set_bg("#000000")
-        write(inv)
+        write(inv, txt)
         inv = True
 
 def write(inv = True, txt = ""):

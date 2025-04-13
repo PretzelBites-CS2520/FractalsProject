@@ -63,7 +63,7 @@ def Mandelbrot(textOption = True, spd = 0, color = "black"):
     # Writes text if parameter boolean is true. Title of fractal and formula
     if textOption:
         text = "Mandelbrot Set\nFormula: Z_n+1 = (Z_n)^2 + C"
-        features.write(text)
+        features.write(txt = text)
         features.setText(text)
 
     iterations = variables(20, 15, 500)
