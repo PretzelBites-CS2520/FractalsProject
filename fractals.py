@@ -6,7 +6,7 @@ stop = False
 
 def variables(default, min, max):
     '''
-    (probably temporary) Method of getting user input for number of iterations
+    Method of getting user input for number of iterations
 
     Parameters:
     default: default value
@@ -112,7 +112,7 @@ def KochCurve(turtle, l, n = 7):
         turtle.left(60)
         KochCurve(turtle, l / 3, n - 1)
 
-def KochSnowflake(color = "black", iterations = 3):
+def KochSnowflake(color = "black"):
     '''
     Creates a Koch Snowflake fractal
 
