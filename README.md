@@ -3,9 +3,9 @@ Turtle Drawing Fractals Project for CS2520
 ***
 ### Roadmap
 - Generate different types of fractals using turtle
-  - <ins>examples</ins>: ~~Mandelbrot set, Koch Snowflake,~~ Sierpinski Triangle, Julia set, ...
+  - <ins>examples</ins>: ~~Mandelbrot set, Koch Snowflake,~~ Sierpinski Triangle, Tree fractal, ...
   - <ins>an easier example</ins>: Golden Ratio (technically not a fractal)
-  - <ins>optional</ins>: Randomly generated fractals
+  - <ins>optional</ins>: Randomly generated fractals (look into Chaos Game?)
 - User customization
   - GUI for user to select the type of fractal
   - ~~Color~~, size, scale, ~~(?)background, # of iterations~~
