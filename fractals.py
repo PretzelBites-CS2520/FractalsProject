@@ -98,9 +98,7 @@ def KochCurve(turtle, l, n = 7):
     l - length of koch curve being drawn
     n - number of times iterating, default is 7
     '''
-    #basic idea for koch snowflake - start with equilateral triangle, remove the inner side and draw another equilateral triangle
-    #draw a koch curve for each part of the triangle
-    #in the recursive function p2 will some distance be above the midpoint of the line 
+    #basic idea for koch snowflake - start with equilateral triangle, then draw a koch curve for each part of the triangle and so on
     if n == 0:
         turtle.forward(l)
     else:
@@ -154,5 +152,72 @@ def KochSnowflake(color = "black"):
     t.hideturtle()
     turtle.update()
 
-def SierpinskiTriangle():
-    print() #temp
+def SierpinskiTriangle(color = "black", iterations = 5):
+    '''
+    Generates an equilateral triangle Sierpinski fractal
+
+    Parameters:
+    color (string): Changes the color of the lines in the fractal
+    iterations (int): number of recursions that the fractal will go through
+    '''
+    
+    # Setup of the canvas
+    turtle.tracer(0, 50)
+    turtle.setup(800, 600)
+    turtle.bgcolor("#FFFFFF")
+    turtle.title("Sierpinski Triangle")
+
+    #creating initial triangle
+    t = turtle.Turtle()
+    t.color(color)
+    t.fillcolor(color)
+    t.speed(0)
+    t.penup()
+    t.setheading(0)
+    t.goto(250, -250) #trying to start at the bottom left point of the triangle
+    vert1 = t.pos() #storing initial vertex
+    t.pendown()
+    t.begin_fill()
+    t.left(120)
+    t.forward(500)
+    vert2 = t.pos()
+    t.left(120)
+    t.forward(500)
+    vert3 = t.pos()
+    t.left(120)
+    t.forward(500)
+    t.end_fill()
+
+    #now starting the recursive process for removing the inner parts of the triangle
+    RemoveInner(t, vert1, vert2, vert3, iterations)
+
+def RemoveInner(turtle, p1, p2, p3, n):
+    '''
+    Recursive function that removes the Inner part of a triangle for Sierpinski Fractal
+
+    Parameters:
+    turtle - turtle drawing operator
+    p1, p2, p3 (tuple): the x and y coordinates of the vertices of the triangle
+    n (int) - number of times iterating
+    '''
+    turtle.color("white") #can change to different colors, just doing white for now
+    turtle.fillcolor("white")
+    #have to calculate the midpoints of each vertex on the triangle to draw the "removed" triangle
+    m1 = ((p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2)
+    m2 = ((p1[0] + p3[0]) / 2, (p1[1] + p3[1]) / 2)
+    m3 = ((p2[0] + p3[0]) / 2, (p2[1] + p3[1]) / 2)
+    turtle.penup()
+    turtle.goto(m1)
+    turtle.pendown()
+    turtle.begin_fill()
+    turtle.goto(m2)
+    turtle.goto(m3)
+    turtle.goto(m1)
+    turtle.end_fill()
+
+    if n == 0:
+        turtle.penup() #do nothing to end the process
+    else:
+        RemoveInner(turtle, p1, m1, m2, n - 1) #have to run three times since three triangles are created
+        RemoveInner(turtle, m1, p2, m3, n - 1)
+        RemoveInner(turtle, m2, m3, p3, n - 1)

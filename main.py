@@ -10,7 +10,8 @@ def draw():
     Draws a specified fractal
     '''
     #fractals.Mandelbrot(True, 0, features.randomize_color())
-    fractals.KochSnowflake(features.randomize_color())
+    #fractals.KochSnowflake(features.randomize_color())
+    fractals.SierpinskiTriangle()
 
 def reset():
     '''
