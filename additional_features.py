@@ -99,3 +99,26 @@ def write(inv = True, txt = ""):
     # Writes text on the canvas based on parameter txt
     turtle.write(txt, align="center", font=('Arial', 12, 'bold'))
     turtle.hideturtle()
+
+def variables(default, min, max):
+    '''
+    Method of getting user input for number of iterations
+
+    Parameters:
+    default: default value
+    min: min value
+    max: max value
+    '''
+    global stop
+    screen = turtle.Screen()
+    iterations = screen.numinput("Iterations", f"Number of recursive iterations:\n({min} - {max})", default, min, max)
+    if iterations is None:
+        stop = True
+        return None
+    return int(iterations)
+
+def text(textOpt, text):
+    if not textOpt:
+        return
+    write(txt = text)
+    setText(text)

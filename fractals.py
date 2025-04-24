@@ -2,24 +2,8 @@ import turtle
 import math, random
 import additional_features as features
 
+# Global flag to stop process and wait for button press
 stop = False
-
-def variables(default, min, max):
-    '''
-    Method of getting user input for number of iterations
-
-    Parameters:
-    default: default value
-    min: min value
-    max: max value
-    '''
-    global stop
-    screen = turtle.Screen()
-    iterations = screen.numinput("Iterations", f"Number of recursive iterations:\n({min} - {max})", default, min, max)
-    if iterations is None:
-        stop = True
-        return None
-    return int(iterations)
 
 def MandelbrotHelper(z, c, n = 20):
     '''
@@ -60,13 +44,10 @@ def Mandelbrot(textOption = True, spd = 0, color = "black"):
     t.penup()
     t.hideturtle()
 
-    # Writes text if parameter boolean is true. Title of fractal and formula
-    if textOption:
-        text = "Mandelbrot Set\nFormula: Z_n+1 = (Z_n)^2 + C"
-        features.write(txt = text)
-        features.setText(text)
+    # Writes text if parameter boolean is true. Title of fractal (and formula in this case)
+    features.text(textOption, "Mandelbrot Set\nFormula: Z_n+1 = (Z_n)^2 + C")
 
-    iterations = variables(20, 15, 500)
+    iterations = features.variables(20, 15, 500)
     if stop or iterations is None:
         return
 
@@ -110,7 +91,7 @@ def KochCurve(turtle, l, n = 7):
         turtle.left(60)
         KochCurve(turtle, l / 3, n - 1)
 
-def KochSnowflake(color = "black"):
+def KochSnowflake(textOption = True, color = "black"):
     '''
     Creates a Koch Snowflake fractal
 
@@ -127,6 +108,8 @@ def KochSnowflake(color = "black"):
     turtle.bgcolor("#FFFFFF")
     turtle.title("Koch Snowflake")
 
+    features.text(textOption, "Koch Snowflake")
+
     t = turtle.Turtle()
     t.color(color)
     t.speed(0)
@@ -136,7 +119,7 @@ def KochSnowflake(color = "black"):
     t.pendown()
     
     # (TEMPORARY) Ideally find a place in additional_features or interactive GUI for iterations
-    iterations = variables(3, 2, 7)
+    iterations = features.variables(3, 2, 7)
     if stop or iterations is None:
         return
 
@@ -152,7 +135,7 @@ def KochSnowflake(color = "black"):
     t.hideturtle()
     turtle.update()
 
-def SierpinskiTriangle(color = "black", iterations = 5):
+def SierpinskiTriangle(textOption = True, color = "black"):
     '''
     Generates an equilateral triangle Sierpinski fractal
 
@@ -160,12 +143,20 @@ def SierpinskiTriangle(color = "black", iterations = 5):
     color (string): Changes the color of the lines in the fractal
     iterations (int): number of recursions that the fractal will go through
     '''
+    global stop
+    stop = False
     
     # Setup of the canvas
     turtle.tracer(0, 50)
     turtle.setup(800, 600)
     turtle.bgcolor("#FFFFFF")
     turtle.title("Sierpinski Triangle")
+
+    features.text(textOption, "Sierpinski Triangle")
+
+    iterations = features.variables(5, 1, 6)
+    if stop or iterations is None:
+        return
 
     #creating initial triangle
     t = turtle.Turtle()
@@ -256,7 +247,7 @@ def RandomFractalHelper():
     
     return transform
 
-def RandomFractal():
+def RandomFractal(textOption = True, color = "black"):
     '''
     Random fractal generation using IFS (Iterated Function System) and chaos game
     '''
@@ -264,21 +255,29 @@ def RandomFractal():
     stop = False
     transform = RandomFractalHelper()
 
-    # Set number of iterations (or points) used to create the fractal
-    iterations = variables(25000, 10000, 100000)
-    if stop or iterations is None:
-        return
+    # Setting up canvas
+    turtle.tracer(0, 0)
+    turtle.setup(800, 600)
+    turtle.bgcolor("#FFFFFF")
+    turtle.title("Random IFS Fractal")
 
-    screen = turtle.Screen()
-    screen.setup(800, 600)
-    screen.bgcolor("white")
-    screen.tracer(0, 0)
+    features.text(textOption, "Mandelbrot Set\nFormula: Z_n+1 = (Z_n)^2 + C")
 
     t = turtle.Turtle()
-    t.speed(0)
     t.penup()
     t.hideturtle()
-    t.color("black")
+    t.speed(0)
+    t.color(color)
+
+    if textOption:
+        text = "Random IFS Fractal\n(Chaos Game)"
+        features.write(txt = text)
+        features.setText(text)
+
+    # Set number of iterations (or points) used to create the fractal
+    iterations = features.variables(25000, 10000, 100000)
+    if stop or iterations is None:
+        return
 
     x, y = random.uniform(-1, 1), random.uniform(-1, 1)
 
@@ -297,7 +296,5 @@ def RandomFractal():
         t.dot(1)
 
         if i % update_interval == 0:
-            screen.update()
-
-    screen.update()
-    screen.mainloop()
+            turtle.update()
+    turtle.update()

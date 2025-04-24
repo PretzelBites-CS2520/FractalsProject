@@ -6,13 +6,14 @@ import turtle
 
 # note: if creating separate page for user to choose, maybe add a parameter (like int or char) for a case/switch branch statement
 def draw():
+    reset()
     '''
     Draws a specified fractal
     '''
     #fractals.Mandelbrot(True, 0, features.randomize_color())
-    #fractals.KochSnowflake(features.randomize_color())
-    #fractals.SierpinskiTriangle()
-    fractals.RandomFractal()
+    #fractals.KochSnowflake(False, features.randomize_color())
+    fractals.SierpinskiTriangle(False, features.randomize_color())
+    #fractals.RandomFractal(False, features.randomize_color())
 
 def reset():
     '''
@@ -21,6 +22,10 @@ def reset():
     fractals.stop = True
     turtle.clearscreen()
     setup()
+
+def done():
+    reset()
+    turtle.Screen().bye()
 
 def setup():
     '''
@@ -31,7 +36,7 @@ def setup():
     features.make_button(-350, -275, "Draw", draw)
     features.make_button(-250, -275, "Reset", reset)
     features.make_button(-150, -275, "Invert", features.invert)
-    features.make_button(-350, -225, "Exit", exit)
+    features.make_button(-350, -225, "Exit", done)
 
 def main():
     screen = turtle.Screen()
