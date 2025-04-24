@@ -1,9 +1,7 @@
 import turtle
 import math, random
 import additional_features as features
-
-# Global flag to stop process and wait for button press
-stop = False
+import config
 
 def MandelbrotHelper(z, c, n = 20):
     '''
@@ -32,8 +30,7 @@ def Mandelbrot(textOption = True, spd = 0, color = "black"):
     spd (int): An integer from 1-10 (or 0) for the drawing speed of the turtle
     color (string): Changes the color of the lines in the fractal
     '''
-    global stop
-    stop = False
+    config.stop = False
 
     # Setup of the canvas
     turtle.tracer(spd, 50)
@@ -48,15 +45,15 @@ def Mandelbrot(textOption = True, spd = 0, color = "black"):
     features.text(textOption, "Mandelbrot Set\nFormula: Z_n+1 = (Z_n)^2 + C")
 
     iterations = features.variables(20, 15, 500)
-    if stop or iterations is None:
+    if config.stop or iterations is None:
         return
 
     # Uses helper function and draws the fractal
     for x1 in range(-400, 300, 2):
-        if stop:
+        if config.stop:
             return
         for y1 in range(-400, 300, 2):
-            if stop:
+            if config.stop:
                 return
             x2, y2 = x1 * 0.005, y1 * 0.005
             m  = MandelbrotHelper(0, 1j * y2 + x2, iterations)
@@ -99,8 +96,7 @@ def KochSnowflake(textOption = True, color = "black"):
     color (string): Changes the color of the lines in the fractal
     iterations (int): number of recursions that the fractal will go through
     '''
-    global stop
-    stop = False
+    config.stop = False
 
     # Setup of the canvas
     turtle.tracer(0, 50)
@@ -120,11 +116,11 @@ def KochSnowflake(textOption = True, color = "black"):
     
     # (TEMPORARY) Ideally find a place in additional_features or interactive GUI for iterations
     iterations = features.variables(3, 2, 7)
-    if stop or iterations is None:
+    if config.stop or iterations is None:
         return
 
     for _ in range(3):
-        if stop:
+        if config.stop:
             return
         KochCurve(t, 300, iterations)
         t.right(120)
@@ -143,8 +139,7 @@ def SierpinskiTriangle(textOption = True, color = "black"):
     color (string): Changes the color of the lines in the fractal
     iterations (int): number of recursions that the fractal will go through
     '''
-    global stop
-    stop = False
+    config.stop = False
     
     # Setup of the canvas
     turtle.tracer(0, 50)
@@ -155,7 +150,7 @@ def SierpinskiTriangle(textOption = True, color = "black"):
     features.text(textOption, "Sierpinski Triangle")
 
     iterations = features.variables(5, 1, 6)
-    if stop or iterations is None:
+    if config.stop or iterations is None:
         return
 
     #creating initial triangle
@@ -251,8 +246,7 @@ def RandomFractal(textOption = True, color = "black"):
     '''
     Random fractal generation using IFS (Iterated Function System) and chaos game
     '''
-    global stop
-    stop = False
+    config.stop = False
     transform = RandomFractalHelper()
 
     # Setting up canvas
@@ -276,7 +270,7 @@ def RandomFractal(textOption = True, color = "black"):
 
     # Set number of iterations (or points) used to create the fractal
     iterations = features.variables(25000, 10000, 100000)
-    if stop or iterations is None:
+    if config.stop or iterations is None:
         return
 
     x, y = random.uniform(-1, 1), random.uniform(-1, 1)
@@ -286,7 +280,7 @@ def RandomFractal(textOption = True, color = "black"):
     update_interval = 500
 
     for i in range(iterations):
-        if stop:
+        if config.stop:
             return
 
         a, b, c, d, e, f = transform[random.choice(indices)]

@@ -1,8 +1,8 @@
 #file for adding extra features on top of the main fractal and gui stuff, could be random colors/shapes, maybe some extra user input stuff
 #could rename the file later because its a bit too broad
-import random
+import random, turtle
 import tkinter as tk
-import turtle
+import config
 
 def randomize_color():
     '''
@@ -49,7 +49,6 @@ def set_bg(col):
     turtle.bgcolor(col)
 
 # Global variables to help with method functions
-inv = False
 textOption = False
 txt = ""
 
@@ -68,16 +67,16 @@ def invert():
     '''
     Inverts the background (and text if necessary)
     '''
-    global inv, textOption
-    if inv:
+    global textOption
+    if config.inv:
         set_bg("#FFFFFF")
         if textOption:
-            write(inv, txt)
-        inv = False
+            write(config.inv, txt)
+        config.inv = False
     else:
         set_bg("#000000")
-        write(inv, txt)
-        inv = True
+        write(config.inv, txt)
+        config.inv = True
 
 def write(inv = True, txt = ""):
     '''
@@ -109,11 +108,10 @@ def variables(default, min, max):
     min: min value
     max: max value
     '''
-    global stop
     screen = turtle.Screen()
     iterations = screen.numinput("Iterations", f"Number of recursive iterations:\n({min} - {max})", default, min, max)
     if iterations is None:
-        stop = True
+        config.stop = True
         return None
     return int(iterations)
 

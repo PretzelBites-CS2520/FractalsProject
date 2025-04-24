@@ -1,6 +1,6 @@
-import fractals
-import additional_features as features
 import turtle
+import fractals, config
+import additional_features as features
 #main file for running the program, could use this to contain the gui stuff as well
 #also could maybe just throw everything into one file but it might get docked for poor organization or something
 
@@ -10,16 +10,16 @@ def draw():
     '''
     Draws a specified fractal
     '''
-    #fractals.Mandelbrot(True, 0, features.randomize_color())
+    fractals.Mandelbrot(True, 0, features.randomize_color())
     #fractals.KochSnowflake(False, features.randomize_color())
-    fractals.SierpinskiTriangle(False, features.randomize_color())
+    #fractals.SierpinskiTriangle(False, features.randomize_color())
     #fractals.RandomFractal(False, features.randomize_color())
 
 def reset():
     '''
     Resets the canvas
     '''
-    fractals.stop = True
+    config.stop = True
     turtle.clearscreen()
     setup()
 
