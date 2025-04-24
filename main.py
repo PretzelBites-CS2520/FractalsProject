@@ -11,7 +11,8 @@ def draw():
     '''
     #fractals.Mandelbrot(True, 0, features.randomize_color())
     #fractals.KochSnowflake(features.randomize_color())
-    fractals.SierpinskiTriangle()
+    #fractals.SierpinskiTriangle()
+    fractals.RandomFractal()
 
 def reset():
     '''

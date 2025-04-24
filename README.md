@@ -14,8 +14,6 @@ Turtle Drawing Fractals Project for CS2520
 - maybe: change invert button to user keyboard input (if not possible, remove this)
 ***
 ### Known Issues
+- ~~Invert button multiple times makes fractal generation noticeably slower for Mandelbrot (may not be fixable? given nature of generating)~~ Likely not fixable for now
 - ~~May be difficult to make interactive GUI with just Turtle. Look into Tkinter~~
-- Invert button multiple times makes fractal generation noticeably slower for Mandelbrot (may not be fixable? given nature of generating)
-- ~~When pressing cancel on reset button, it conntinues from last turtle position~~
-- ~~Text is not showing up (may be a minor issue?)~~
-- ~~Sometimes random color generation creates strings that cause errors ex: bad color string: #f7c5a~~
+- Turn off invert button for random fractal (will impact performance too much)

@@ -1,5 +1,5 @@
 import turtle
-import math
+import math, random
 import additional_features as features
 
 stop = False
@@ -221,3 +221,83 @@ def RemoveInner(turtle, p1, p2, p3, n):
         RemoveInner(turtle, p1, m1, m2, n - 1) #have to run three times since three triangles are created
         RemoveInner(turtle, m1, p2, m3, n - 1)
         RemoveInner(turtle, m2, m3, p3, n - 1)
+
+def RandomFractalHelper():
+    '''
+    Helper method for RandomFractal to generate transformation matrix
+    '''
+    num_transform = random.randint(3, 5)
+    transform = []
+
+    # Set the canvas ranges of the fractal
+    angle_range = math.pi
+    scale_range = (0.2, 0.7)
+    shear_range = (-0.3, 0.3)
+    trans_range = (-200, 150)
+
+    # Creates a transformation matrix to be used when creating points
+    for _ in range(num_transform):
+        angle = random.uniform(-angle_range, angle_range)
+        cos_a = math.cos(angle)
+        sin_a = math.sin(angle)
+        
+        scale_x = random.uniform(*scale_range)
+        scale_y = random.uniform(*scale_range)
+        shear = random.uniform(*shear_range)
+
+        a = scale_x * cos_a
+        b = -scale_x * sin_a + shear * cos_a
+        c = scale_y * sin_a
+        d = scale_y * cos_a + shear * sin_a
+        e = random.uniform(*trans_range)
+        f = random.uniform(*trans_range)
+        
+        transform.append((a, b, c, d, e, f))
+    
+    return transform
+
+def RandomFractal():
+    '''
+    Random fractal generation using IFS (Iterated Function System) and chaos game
+    '''
+    global stop
+    stop = False
+    transform = RandomFractalHelper()
+
+    # Set number of iterations (or points) used to create the fractal
+    iterations = variables(25000, 10000, 100000)
+    if stop or iterations is None:
+        return
+
+    screen = turtle.Screen()
+    screen.setup(800, 600)
+    screen.bgcolor("white")
+    screen.tracer(0, 0)
+
+    t = turtle.Turtle()
+    t.speed(0)
+    t.penup()
+    t.hideturtle()
+    t.color("black")
+
+    x, y = random.uniform(-1, 1), random.uniform(-1, 1)
+
+    indices = list(range(len(transform)))
+
+    update_interval = 500
+
+    for i in range(iterations):
+        if stop:
+            return
+
+        a, b, c, d, e, f = transform[random.choice(indices)]
+        x, y = (a * x) + (b * y) + e, (c * x) + (d * y) + f
+
+        t.goto(x, y)
+        t.dot(1)
+
+        if i % update_interval == 0:
+            screen.update()
+
+    screen.update()
+    screen.mainloop()
