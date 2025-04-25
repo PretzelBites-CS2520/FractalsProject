@@ -10,10 +10,10 @@ def draw():
     '''
     Draws a specified fractal
     '''
-    fractals.Mandelbrot(True, 0, features.randomize_color())
+    #fractals.Mandelbrot(True, 0, features.randomize_color())
     #fractals.KochSnowflake(False, features.randomize_color())
     #fractals.SierpinskiTriangle(False, features.randomize_color())
-    #fractals.RandomFractal(False, features.randomize_color())
+    fractals.RandomFractal(False, features.randomize_color())
 
 def reset():
     '''
@@ -39,6 +39,7 @@ def setup():
     features.make_button(-350, -225, "Exit", done)
 
 def main():
+    config.init()
     screen = turtle.Screen()
     screen.setup(800, 600)
     setup()
