@@ -1,5 +1,6 @@
 import random, turtle
 import tkinter as tk
+from tkinter import colorchooser
 import config
 
 def randomize_color():
@@ -9,6 +10,20 @@ def randomize_color():
     Returns a random hex-code color string
     '''
     return "#{:06x}".format(random.randrange(0, 2 ** 24))
+
+def choose_color():
+    '''
+    Prompt for the user to choose a color
+
+    Returns color code
+    '''
+
+    col = colorchooser.askcolor(title = "Cancel for random")[1]
+
+    # Chooses random color if canceled
+    if col is None:
+        return randomize_color()
+    return col
 
 def make_button(x, y, txt, cmd):
     '''
@@ -46,34 +61,28 @@ def set_bg(col):
     '''
     turtle.bgcolor(col)
 
-# Global variables to help with method functions
-textOption = False
-txt = ""
-
 def set_text(text):
     '''
     Enables formula text to be shown on the canvas
 
     Parameter:
-    text: The string to set the text to be shown
+    text (string): The string to set the text to be shown
     '''
-    global textOption, txt
-    textOption = True
-    txt = text
+    config.text_option = True
+    config.txt = text
 
 def invert():
     '''
     Inverts the background (and text if necessary)
     '''
-    global textOption
     if config.inv:
         set_bg("#FFFFFF")
-        if textOption:
-            write(config.inv, txt)
+        if config.text_option:
+            write(config.inv, config.txt)
         config.inv = False
     else:
         set_bg("#000000")
-        write(config.inv, txt)
+        write(config.inv, config.txt)
         config.inv = True
 
 def write(inv = True, txt = ""):
@@ -102,9 +111,9 @@ def variables(default, min, max):
     Method of getting user input for number of iterations
 
     Parameters:
-    default: default value
-    min: min value
-    max: max value
+    default (int): default value
+    min (int): min value
+    max (int): max value
     '''
     screen = turtle.Screen()
     iterations = screen.numinput("Iterations", f"Number of recursive iterations:\n({min} - {max})", default, min, max)
@@ -114,14 +123,30 @@ def variables(default, min, max):
     return int(iterations)
 
 def text(textOpt, text):
+    '''
+    Sets text value based on the message given
+
+    Parameters:
+    textOpt (bool): Chooses whether to show text message or not
+    text (string): The text string value to output
+    '''
+
+    # If textOpt is false, the text will not show
     if not textOpt:
-        global txt
-        txt = ""
+        config.txt = ""
         return
     write(txt = text)
     set_text(text)
 
 def draw_image(x, y, path):
+    '''
+    Draws an image at the selected x and y value
+
+    Parameters:
+    x (int): x-coordinate to output image, based on the north-west starting position
+    y (int): y-coordinate to output image, based on the north-west starting position
+    path (str): path to the image file
+    '''
     screen = turtle.Screen()
     canvas = screen.getcanvas()
     

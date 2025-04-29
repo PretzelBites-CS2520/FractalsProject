@@ -7,8 +7,8 @@ Turtle Drawing Fractals Project for CS2520
   - could also add this snowflake fractal found on stackOverflow (link: https://stackoverflow.com/questions/32303391/drawing-a-snowflake-using-recursion)
   - <ins>optional</ins>: ~~Randomly generated fractals (look into Chaos Game?)~~
 - User customization
-  - GUI for user to select the type of fractal
-    - maybe through a separate "page" (optionally with images of fractals)
+  - ~~GUI for user to select the type of fractal~~
+    - ~~maybe through a separate "page" (optionally with images of fractals)~~
   - ~~Color, (?)background, # of iterations~~
 - messages / text
 - maybe: add an interactive gui to choose iterations, color, textoption (t/f), etc
@@ -17,3 +17,4 @@ Turtle Drawing Fractals Project for CS2520
 ***
 ### Known Issues
 - ~~Invert button multiple times makes fractal generation noticeably slower for Mandelbrot (may not be fixable? given nature of generating)~~ Likely not fixable for now
+- (MAYBE system specific error) Color picker menu pops up when starting the program, even if the module wasn't imported

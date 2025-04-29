@@ -276,16 +276,16 @@ def RandomFractal(textOption = True, color = "black"):
     if config.stop or iterations is None:
         return
 
+    # Starting values, including how often to update screen
     x, y = random.uniform(-1, 1), random.uniform(-1, 1)
-
     indices = list(range(len(transform)))
-
     update_interval = 500
 
     for i in range(iterations):
         if config.stop:
             return
 
+        # Draws dot at the x, y coordinates
         a, b, c, d, e, f = transform[random.choice(indices)]
         x, y = (a * x) + (b * y) + e, (c * x) + (d * y) + f
 

@@ -12,3 +12,10 @@ def init():
     # Global variable for selecting fractal from main menu
     global n
     n = 0
+
+    # Global variables for the text to show
+    global txt
+    txt = ""
+
+    global text_option
+    text_option = False

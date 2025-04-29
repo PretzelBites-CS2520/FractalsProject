@@ -11,13 +11,13 @@ def draw():
     n (int) - specifies the number of the fractal to be drawn
     '''
     if config.n == 1:
-        fractals.Mandelbrot(True, 0, features.randomize_color())
+        fractals.Mandelbrot(True, 0, features.choose_color())
     elif config.n == 2:
-        fractals.KochSnowflake(False, features.randomize_color())
+        fractals.KochSnowflake(False, features.choose_color())
     elif config.n == 3:
-        fractals.SierpinskiTriangle(False, features.randomize_color())
+        fractals.SierpinskiTriangle(False, features.choose_color())
     elif config.n == 4:
-        fractals.RandomFractal(False, features.randomize_color())
+        fractals.RandomFractal(False, features.choose_color())
 
 def reset():
     '''
@@ -49,6 +49,9 @@ def setup():
 def setup_helper(val):
     '''
     Helper method to set global variable and call setup method
+
+    Parameters:
+    val (int): Value from 1-4 correlating to which fractal the user chose
     '''
     config.n = val
     setup()
@@ -61,11 +64,13 @@ def menu_setup():
     config.n = 0
     features.destroy_button()
 
+    # Sets up the images
     features.draw_image(-230, -220, "images/mandelbrot.png")
     features.draw_image(80, -220, "images/koch.png")
     features.draw_image(-230, -30, "images/sierpinski.png")
     features.draw_image(80, -30, "images/random.png")
 
+    # Sets up the buttons
     features.make_button(-150, -100, "Mandelbrot Set", lambda: setup_helper(1))
     features.make_button(150, -100, "Koch Snowflake", lambda: setup_helper(2))
     features.make_button(-150, 100, "Sierpinski Triangle", lambda: setup_helper(3))
