@@ -223,10 +223,12 @@ def RandomFractalHelper():
 
     # Creates a transformation matrix to be used when creating points
     for _ in range(num_transform):
+        # Creates random angles for the points / shapes
         angle = random.uniform(-angle_range, angle_range)
         cos_a = math.cos(angle)
         sin_a = math.sin(angle)
         
+        # Randomizes scale of the shapes
         scale_x = random.uniform(*scale_range)
         scale_y = random.uniform(*scale_range)
         shear = random.uniform(*shear_range)
@@ -238,6 +240,7 @@ def RandomFractalHelper():
         e = random.uniform(*trans_range)
         f = random.uniform(*trans_range)
         
+        # Adds all parameters to the return value
         transform.append((a, b, c, d, e, f))
     
     return transform

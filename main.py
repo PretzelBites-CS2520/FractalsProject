@@ -1,11 +1,8 @@
 import turtle
 import fractals, config
 import additional_features as features
-#main file for running the program, could use this to contain the gui stuff as well
-#also could maybe just throw everything into one file but it might get docked for poor organization or something
 
-# note: if creating separate page for user to choose, maybe add a parameter (like int or char) for a case/switch branch statement
-def draw(n):
+def draw():
     reset()
     '''
     Draws a specified fractal
@@ -13,13 +10,13 @@ def draw(n):
     Parameters:
     n (int) - specifies the number of the fractal to be drawn
     '''
-    if n == 1:
+    if config.n == 1:
         fractals.Mandelbrot(True, 0, features.randomize_color())
-    elif n == 2:
+    elif config.n == 2:
         fractals.KochSnowflake(False, features.randomize_color())
-    elif n == 3:
+    elif config.n == 3:
         fractals.SierpinskiTriangle(False, features.randomize_color())
-    elif n == 4:
+    elif config.n == 4:
         fractals.RandomFractal(False, features.randomize_color())
 
 def reset():
@@ -34,7 +31,7 @@ def done():
     reset()
     turtle.Screen().bye()
 
-def setup(n=0):
+def setup():
     '''
     Sets up all the buttons on the canvas
 
@@ -43,22 +40,30 @@ def setup(n=0):
     '''
     features.destroy_button()
 
-    features.make_button(-350, -275, "Draw", lambda: draw(n))
+    features.make_button(-350, -275, "Draw", lambda: draw())
     features.make_button(-250, -275, "Reset", reset)
     features.make_button(-150, -275, "Invert", features.invert)
     features.make_button(-350, -225, "Back", menu_setup)
+
+def setup_helper(val):
+    '''
+    Helper method to set global variable and call setup method
+    '''
+    config.n = val
+    setup()
 
 def menu_setup():
     '''
     Sets up the main menu where the user can select which fractal they would like to view
     '''
     reset()
+    config.n = 0
     features.destroy_button()
 
-    features.make_button(-100, -100, "Mandelbrot Set", lambda: setup(1))
-    features.make_button(-100, 100, "Koch Snowflake", lambda: setup(2))
-    features.make_button(100, 100, "Sierpinski Triangle", lambda: setup(3))
-    features.make_button(100, -100, "Random Fractal", lambda: setup(4))
+    features.make_button(-100, -100, "Mandelbrot Set", lambda: setup_helper(1))
+    features.make_button(-100, 100, "Koch Snowflake", lambda: setup_helper(2))
+    features.make_button(100, 100, "Sierpinski Triangle", lambda: setup_helper(3))
+    features.make_button(100, -100, "Random Fractal", lambda: setup_helper(4))
     features.make_button(-25, 200, "Exit Program", done)
 
 def main():

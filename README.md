@@ -17,5 +17,3 @@ Turtle Drawing Fractals Project for CS2520
 ***
 ### Known Issues
 - ~~Invert button multiple times makes fractal generation noticeably slower for Mandelbrot (may not be fixable? given nature of generating)~~ Likely not fixable for now
-- ~~May be difficult to make interactive GUI with just Turtle. Look into Tkinter~~
-- Turn off invert button for random fractal (will impact performance too much)

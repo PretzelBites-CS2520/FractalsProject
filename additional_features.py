@@ -1,5 +1,3 @@
-#file for adding extra features on top of the main fractal and gui stuff, could be random colors/shapes, maybe some extra user input stuff
-#could rename the file later because its a bit too broad
 import random, turtle
 import tkinter as tk
 import config
@@ -52,7 +50,7 @@ def set_bg(col):
 textOption = False
 txt = ""
 
-def setText(text):
+def set_text(text):
     '''
     Enables formula text to be shown on the canvas
 
@@ -117,6 +115,8 @@ def variables(default, min, max):
 
 def text(textOpt, text):
     if not textOpt:
+        global txt
+        txt = ""
         return
     write(txt = text)
-    setText(text)
+    set_text(text)

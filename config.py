@@ -8,3 +8,7 @@ def init():
     # Check for invert
     global inv
     inv = False
+
+    # Global variable for selecting fractal from main menu
+    global n
+    n = 0
