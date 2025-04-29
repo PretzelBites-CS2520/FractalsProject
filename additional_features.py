@@ -120,3 +120,15 @@ def text(textOpt, text):
         return
     write(txt = text)
     set_text(text)
+
+def draw_image(x, y, path):
+    screen = turtle.Screen()
+    canvas = screen.getcanvas()
+    
+    img = tk.PhotoImage(file = path)
+    canvas.create_image(x, y, anchor = tk.NW, image = img)
+    
+    # Checks if canvas list was already created (if canvas already has an image attribute), if not create then append
+    if not hasattr(canvas, 'images'):
+        canvas.images = []
+    canvas.images.append(img)

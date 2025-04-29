@@ -38,8 +38,9 @@ def setup():
     Parameters:
     n (int) - specifies the number of the fractal to be drawn
     '''
+    turtle.clearscreen()
     features.destroy_button()
-
+    
     features.make_button(-350, -275, "Draw", lambda: draw())
     features.make_button(-250, -275, "Reset", reset)
     features.make_button(-150, -275, "Invert", features.invert)
@@ -60,10 +61,15 @@ def menu_setup():
     config.n = 0
     features.destroy_button()
 
-    features.make_button(-100, -100, "Mandelbrot Set", lambda: setup_helper(1))
-    features.make_button(-100, 100, "Koch Snowflake", lambda: setup_helper(2))
-    features.make_button(100, 100, "Sierpinski Triangle", lambda: setup_helper(3))
-    features.make_button(100, -100, "Random Fractal", lambda: setup_helper(4))
+    features.draw_image(-230, -220, "images/mandelbrot.png")
+    features.draw_image(80, -220, "images/koch.png")
+    features.draw_image(-230, -30, "images/sierpinski.png")
+    features.draw_image(80, -30, "images/random.png")
+
+    features.make_button(-150, -100, "Mandelbrot Set", lambda: setup_helper(1))
+    features.make_button(150, -100, "Koch Snowflake", lambda: setup_helper(2))
+    features.make_button(-150, 100, "Sierpinski Triangle", lambda: setup_helper(3))
+    features.make_button(150, 100, "Random Fractal (EXP)", lambda: setup_helper(4))
     features.make_button(-25, 200, "Exit Program", done)
 
 def main():
