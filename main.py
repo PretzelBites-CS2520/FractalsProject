@@ -65,10 +65,11 @@ def menu_setup():
     features.destroy_button()
 
     # Sets up the images
-    features.draw_image(-230, -220, "images/mandelbrot.png")
-    features.draw_image(80, -220, "images/koch.png")
-    features.draw_image(-230, -30, "images/sierpinski.png")
-    features.draw_image(80, -30, "images/random.png")
+    from pathlib import Path #importing this library to deal with issues in operating systems
+    features.draw_image(-230, -220, Path("images/mandelbrot.png"))
+    features.draw_image(80, -220, Path("images/koch.png"))
+    features.draw_image(-230, -30, Path("images/sierpinski.png"))
+    features.draw_image(80, -30, Path("images/random.png"))
 
     # Sets up the buttons
     features.make_button(-150, -100, "Mandelbrot Set", lambda: setup_helper(1))
