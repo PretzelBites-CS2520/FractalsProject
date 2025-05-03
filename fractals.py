@@ -295,3 +295,31 @@ def RandomFractal(textOption = True, color = "black"):
         if i % update_interval == 0:
             turtle.update()
     turtle.update()
+
+def BasicSnowflake(textOption = True, color = "black"):
+    #this code is taken from a stack overflow post showing how to create a simple snowflake
+    #link: https://stackoverflow.com/questions/32303391/drawing-a-snowflake-using-recursion
+
+    # Setting up canvas
+    turtle.tracer(0, 0)
+    turtle.setup(800, 600)
+    turtle.bgcolor("#FFFFFF")
+    turtle.title("Basic Snowflake")
+
+    t = turtle.Turtle()
+    t.color(color)
+
+    features.text(textOption, "Basic Snowflake")
+
+    iterations = features.variables(5, 1, 10)
+
+    drawBasicSnowflake(t, 190, iterations)
+
+def drawBasicSnowflake(t, length, iterations):
+    if iterations > 0:
+        for _ in range(6):
+            t.forward(length)
+            drawBasicSnowflake(t, length // 3, iterations - 1)
+            t.backward(length)
+            t.left(60)
+

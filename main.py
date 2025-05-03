@@ -18,6 +18,8 @@ def draw():
         fractals.SierpinskiTriangle(False, features.choose_color())
     elif config.n == 4:
         fractals.RandomFractal(False, features.choose_color())
+    elif config.n == 5:
+        fractals.BasicSnowflake(False, features.choose_color())
 
 def reset():
     '''
@@ -66,17 +68,19 @@ def menu_setup():
 
     # Sets up the images
     from pathlib import Path #importing this library to deal with issues in operating systems
-    features.draw_image(-230, -220, Path("images/mandelbrot.png"))
-    features.draw_image(80, -220, Path("images/koch.png"))
-    features.draw_image(-230, -30, Path("images/sierpinski.png"))
-    features.draw_image(80, -30, Path("images/random.png"))
+    features.draw_image(-330, -220, Path("images/mandelbrot.png"))
+    features.draw_image(180, -220, Path("images/koch.png"))
+    features.draw_image(-330, -30, Path("images/sierpinski.png"))
+    features.draw_image(180, -30, Path("images/random.png"))
+    features.draw_image(-55, -30, Path("images/basicsnowflake.png"))
 
     # Sets up the buttons
-    features.make_button(-150, -100, "Mandelbrot Set", lambda: setup_helper(1))
-    features.make_button(150, -100, "Koch Snowflake", lambda: setup_helper(2))
-    features.make_button(-150, 100, "Sierpinski Triangle", lambda: setup_helper(3))
-    features.make_button(150, 100, "Random Fractal (EXP)", lambda: setup_helper(4))
-    features.make_button(-25, 200, "Exit Program", done)
+    features.make_button(-250, -100, "Mandelbrot Set", lambda: setup_helper(1))
+    features.make_button(250, -100, "Koch Snowflake", lambda: setup_helper(2))
+    features.make_button(-250, 100, "Sierpinski Triangle", lambda: setup_helper(3))
+    features.make_button(250, 100, "Random Fractal (EXP)", lambda: setup_helper(4))
+    features.make_button(0, 100, "Basic Snowflake", lambda: setup_helper(5))
+    features.make_button(0, 200, "Exit Program", done)
 
 def main():
     config.init()
