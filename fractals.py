@@ -76,7 +76,6 @@ def KochCurve(turtle, l, n = 7):
     l - length of koch curve being drawn
     n - number of times iterating, default is 7
     '''
-    #basic idea for koch snowflake - start with equilateral triangle, then draw a koch curve for each part of the triangle and so on
     if n == 0:
         turtle.forward(l)
     else:
@@ -93,8 +92,8 @@ def KochSnowflake(textOption = True, color = "black"):
     Creates a Koch Snowflake fractal
 
     Parameters:
+    textOption (bool): Decides whether or not to put text in the drawing
     color (string): Changes the color of the lines in the fractal
-    iterations (int): number of recursions that the fractal will go through
     '''
     config.stop = False
 
@@ -136,8 +135,8 @@ def SierpinskiTriangle(textOption = True, color = "black"):
     Generates an equilateral triangle Sierpinski fractal
 
     Parameters:
+    textOption (bool): Decides whether or not to put text in the drawing
     color (string): Changes the color of the lines in the fractal
-    iterations (int): number of recursions that the fractal will go through
     '''
     config.stop = False
     
@@ -248,6 +247,10 @@ def RandomFractalHelper():
 def RandomFractal(textOption = True, color = "black"):
     '''
     Random fractal generation using IFS (Iterated Function System) and chaos game
+
+    Parameters:
+    textOption (bool): Decides whether or not to put text in the drawing
+    color (string): Changes the color of the lines in the fractal
     '''
     config.stop = False
     transform = RandomFractalHelper()
@@ -297,9 +300,13 @@ def RandomFractal(textOption = True, color = "black"):
     turtle.update()
 
 def BasicSnowflake(textOption = True, color = "black"):
-    #this code is taken from a stack overflow post showing how to create a simple snowflake
-    #link: https://stackoverflow.com/questions/32303391/drawing-a-snowflake-using-recursion
+    """
+    Draws a basic fractal pattern that looks like a snowflake
 
+    Parameters:
+    textOption (bool): Decides whether or not to put text in the drawing
+    color (string): Changes the color of the lines in the fractal
+    """
     # Setting up canvas
     turtle.tracer(0, 0)
     turtle.setup(800, 600)
@@ -316,6 +323,16 @@ def BasicSnowflake(textOption = True, color = "black"):
     drawBasicSnowflake(t, 190, iterations)
 
 def drawBasicSnowflake(t, length, iterations):
+    """
+    Function for drawing the basic snowflake
+    this code is taken from a stack overflow post showing how to create a simple snowflake
+    link: https://stackoverflow.com/questions/32303391/drawing-a-snowflake-using-recursion
+
+    Parameters:
+    t - turtle drawing object
+    length - the length of the line to be drawn
+    iterations - the number of times the iterable will be run
+    """
     if iterations > 0:
         for _ in range(6):
             t.forward(length)
