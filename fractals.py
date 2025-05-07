@@ -21,7 +21,7 @@ def MandelbrotHelper(z, c, n = 20):
     else:
         return z ** 2 + c
 
-def Mandelbrot(textOption = True, spd = 0, color = "black"):
+def Mandelbrot(textOption = True, color = "black"):
     '''
     Creates a Mandelbrot set fractal
 
@@ -33,7 +33,7 @@ def Mandelbrot(textOption = True, spd = 0, color = "black"):
     config.stop = False
 
     # Setup of the canvas
-    turtle.tracer(spd, 50)
+    turtle.tracer(0, 0)
     turtle.setup(800, 600)
     turtle.bgcolor("#FFFFFF")
     turtle.title("Mandelbrot Set")
@@ -44,10 +44,6 @@ def Mandelbrot(textOption = True, spd = 0, color = "black"):
     # Writes text if parameter boolean is true. Title of fractal (and formula in this case)
     features.text(textOption, "Mandelbrot Set\nFormula: Z_n+1 = (Z_n)^2 + C")
 
-    iterations = features.variables(20, 15, 500)
-    if config.stop or iterations is None:
-        return
-
     # Uses helper function and draws the fractal
     for x1 in range(-400, 300, 2):
         if config.stop:
@@ -56,7 +52,7 @@ def Mandelbrot(textOption = True, spd = 0, color = "black"):
             if config.stop:
                 return
             x2, y2 = x1 * 0.005, y1 * 0.005
-            m  = MandelbrotHelper(0, 1j * y2 + x2, iterations)
+            m  = MandelbrotHelper(0, 1j * y2 + x2, config.user_input['iterations'])
             if not math.isnan(m.real):
                 # Cursor color
                 t.color("#000000")
@@ -112,16 +108,11 @@ def KochSnowflake(textOption = True, color = "black"):
     t.goto(-150, 100)
     t.setheading(0)
     t.pendown()
-    
-    # (TEMPORARY) Ideally find a place in additional_features or interactive GUI for iterations
-    iterations = features.variables(3, 2, 7)
-    if config.stop or iterations is None:
-        return
 
     for _ in range(3):
         if config.stop:
             return
-        KochCurve(t, 300, iterations)
+        KochCurve(t, 300, config.user_input['iterations'])
         t.right(120)
 
     t.goto(-150, 100)
@@ -148,10 +139,6 @@ def SierpinskiTriangle(textOption = True, color = "black"):
 
     features.text(textOption, "Sierpinski Triangle")
 
-    iterations = features.variables(5, 1, 6)
-    if config.stop or iterations is None:
-        return
-
     #creating initial triangle
     t = turtle.Turtle()
     t.color(color)
@@ -174,7 +161,7 @@ def SierpinskiTriangle(textOption = True, color = "black"):
     t.end_fill()
 
     #now starting the recursive process for removing the inner parts of the triangle
-    RemoveInner(t, vert1, vert2, vert3, iterations)
+    RemoveInner(t, vert1, vert2, vert3, config.user_input['iterations'])
 
 def RemoveInner(turtle, p1, p2, p3, n):
     '''
@@ -261,8 +248,6 @@ def RandomFractal(textOption = True, color = "black"):
     turtle.bgcolor("#FFFFFF")
     turtle.title("Random IFS Fractal")
 
-    features.text(textOption, "Mandelbrot Set\nFormula: Z_n+1 = (Z_n)^2 + C")
-
     t = turtle.Turtle()
     t.penup()
     t.hideturtle()
@@ -272,19 +257,14 @@ def RandomFractal(textOption = True, color = "black"):
     if textOption:
         text = "Random IFS Fractal\n(Chaos Game)"
         features.write(txt = text)
-        features.setText(text)
-
-    # Set number of iterations (or points) used to create the fractal
-    iterations = features.variables(25000, 10000, 100000)
-    if config.stop or iterations is None:
-        return
+        features.set_text(text)
 
     # Starting values, including how often to update screen
     x, y = random.uniform(-1, 1), random.uniform(-1, 1)
     indices = list(range(len(transform)))
     update_interval = 500
 
-    for i in range(iterations):
+    for i in range(config.user_input['iterations']):
         if config.stop:
             return
 
@@ -318,9 +298,7 @@ def BasicSnowflake(textOption = True, color = "black"):
 
     features.text(textOption, "Basic Snowflake")
 
-    iterations = features.variables(5, 1, 10)
-
-    drawBasicSnowflake(t, 190, iterations)
+    drawBasicSnowflake(t, 190, config.user_input['iterations'])
 
 def drawBasicSnowflake(t, length, iterations):
     """

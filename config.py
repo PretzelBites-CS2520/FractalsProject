@@ -17,5 +17,10 @@ def init():
     global txt
     txt = ""
 
+    # Variable to check whether or not to show text
     global text_option
     text_option = False
+
+    # Dictionary for user input from the popup window
+    global user_input
+    user_input = {}

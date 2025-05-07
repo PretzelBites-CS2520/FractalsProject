@@ -3,27 +3,121 @@ import tkinter as tk
 from tkinter import colorchooser
 import config
 
-def randomize_color():
+class MultiInputApp:
     '''
-    Simple generator for random hex colors
-
-    Returns a random hex-code color string
+    Class for user input for various options including color, iterations, and text option
     '''
-    return "#{:06x}".format(random.randrange(0, 2 ** 24))
+    def __init__(self, root, title, default, min, max):
+        '''
+        Initializes all labels and values
 
-def choose_color():
+        Parameters:
+        root: The root window as tk.Toplevel() to avoid clashing with the other windows
+        title (str): Title of the popup window
+        default (int): Default value for iterations
+        min (int): Minimum value for iterations
+        max (int): Maximum value for iterations
+        '''
+
+        # Sets up the popup window
+        self.root = root
+        if hasattr(self.root, 'title'):
+            self.root.title(title)
+        self.result = None
+
+        self.min = min
+        self.max = max
+        
+        # Color section
+        tk.Label(root, text = "Color:").grid(row = 0, column = 0, padx = 5, pady = 5)
+        self.color_var = tk.StringVar(value = "#000000")
+        self.color_entry = tk.Entry(root, textvariable = self.color_var, width = 10)
+        self.color_entry.grid(row = 0, column=1, padx=5, pady=5)
+        
+        # Buttons for color wheel and randomizing color
+        tk.Button(root, text="Choose", command = self.choose_color).grid(row = 0, column = 2, padx = 5, pady = 5)
+        tk.Button(root, text="Random", command = self.random_color).grid(row = 0, column = 3, padx = 5, pady = 5)
+        
+        # Iterations section
+        tk.Label(root, text = f"Iterations ({min} - {max}):").grid(row = 1, column = 0, padx = 5, pady = 5)
+        self.iter_var = tk.StringVar(value = str(default))
+
+        # Setting up validation
+        vcmd = (root.register(self.validate_digits), '%P')
+        self.iter_entry = tk.Entry(root, textvariable = self.iter_var, validate = 'key', validatecommand = vcmd)
+        self.iter_entry.grid(row = 1, column = 1, columnspan = 3, padx = 5, pady = 5, sticky = 'ew')
+
+        # Text section
+        tk.Label(root, text = "Show Text:").grid(row = 2, column = 0, padx = 5, pady = 5)
+
+        # Default value and options to choose from
+        self.bool_var = tk.StringVar(value = "True")
+        options = ["True", "False"]
+        self.bool_dropdown = tk.OptionMenu(root, self.bool_var, *options)
+        self.bool_dropdown.grid(row = 2, column = 1, padx = 5, pady = 5)
+
+        # Bottom Buttons
+        tk.Button(root, text = "Confirm", command=self.confirm).grid(row = 3, column = 1, padx = 5, pady = 5)
+        tk.Button(root, text = "Cancel", command=self.cancel).grid(row = 3, column = 2, padx = 5, pady = 5)
+        
+        # Code to keep window up until the user confirms or cancels
+        self.root.protocol("WM_DELETE_WINDOW", self.cancel)
+        self.root.wait_window()
+    
+    # Ensures the iterations is a number
+    def validate_digits(self, new):
+        return new.isdigit() or new == ""
+    
+    # Methods to pick color or randomize
+    def choose_color(self):
+        color = colorchooser.askcolor(title="Choose color")[1]
+        if color:
+            self.color_var.set(color)
+    
+    def random_color(self):
+        self.color_var.set(self.randomize_color())
+    
+    @staticmethod
+    def randomize_color():
+        return "#{:06x}".format(random.randrange(0, 2 ** 24))
+
+    # Method for when confirm is pressed
+    def confirm(self):
+        # Check for valid number of iterations
+        try:
+            value = int(self.iter_var.get())
+            if not (self.min <= value <= self.max):
+                tk.messagebox.showerror("Invalid Input", f"Iterations must be between {self.min} and {self.max}.")
+                return
+            self.result = {
+                'color': self.color_var.get(),
+                'iterations': value,
+                'text_option': self.bool_var.get() == "True"
+            }
+        except ValueError:
+            tk.messagebox.showerror("Invalid Input", "Please enter a valid integer for iterations.")
+            return
+
+        self.root.destroy()
+
+    # Method for when cancel is pressed
+    def cancel(self):
+        # Clears dictionary and closes window
+        self.result = None
+        self.root.destroy()
+
+def get_input(title, default, min, max):
     '''
-    Prompt for the user to choose a color
+    Popup menu for user input
 
-    Returns color code
+    Parameters:
+    default (int): Default value for iterations
+    min (int): Minimum value for iterations
+    max (int): Maximum value for iterations
     '''
-
-    col = colorchooser.askcolor(title = "Cancel for random")[1]
-
-    # Chooses random color if canceled
-    if col is None:
-        return randomize_color()
-    return col
+    root = tk.Toplevel()
+    app = MultiInputApp(root, title, default, min, max)
+    return app.result
 
 def make_button(x, y, txt, cmd):
     '''
@@ -105,22 +199,6 @@ def write(inv = True, txt = ""):
     # Writes text on the canvas based on parameter txt
     turtle.write(txt, align="center", font=('Arial', 12, 'bold'))
     turtle.hideturtle()
-
-def variables(default, min, max):
-    '''
-    Method of getting user input for number of iterations
-
-    Parameters:
-    default (int): default value
-    min (int): min value
-    max (int): max value
-    '''
-    screen = turtle.Screen()
-    iterations = screen.numinput("Iterations", f"Number of recursive iterations:\n({min} - {max})", default, min, max)
-    if iterations is None:
-        config.stop = True
-        return None
-    return int(iterations)
 
 def text(textOpt, text):
     '''
