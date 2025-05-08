@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import colorchooser
 import config
 
-class MultiInputApp:
+class Input:
     '''
     Class for user input for various options including color, iterations, and text option
     '''
@@ -30,8 +30,8 @@ class MultiInputApp:
         
         # Color section
         tk.Label(root, text = "Color:").grid(row = 0, column = 0, padx = 5, pady = 5)
-        self.color_var = tk.StringVar(value = "#000000")
-        self.color_entry = tk.Entry(root, textvariable = self.color_var, width = 10)
+        self.color = tk.StringVar(value = "#000000")
+        self.color_entry = tk.Entry(root, textvariable = self.color, width = 10)
         self.color_entry.grid(row = 0, column=1, padx=5, pady=5)
         
         # Buttons for color wheel and randomizing color
@@ -40,21 +40,21 @@ class MultiInputApp:
         
         # Iterations section
         tk.Label(root, text = f"Iterations ({min} - {max}):").grid(row = 1, column = 0, padx = 5, pady = 5)
-        self.iter_var = tk.StringVar(value = str(default))
+        self.iterations = tk.StringVar(value = str(default))
 
         # Setting up validation
         vcmd = (root.register(self.validate_digits), '%P')
-        self.iter_entry = tk.Entry(root, textvariable = self.iter_var, validate = 'key', validatecommand = vcmd)
+        self.iter_entry = tk.Entry(root, textvariable = self.iterations, validate = 'key', validatecommand = vcmd)
         self.iter_entry.grid(row = 1, column = 1, columnspan = 3, padx = 5, pady = 5, sticky = 'ew')
 
         # Text section
         tk.Label(root, text = "Show Text:").grid(row = 2, column = 0, padx = 5, pady = 5)
 
         # Default value and options to choose from
-        self.bool_var = tk.StringVar(value = "True")
+        self.text = tk.StringVar(value = "False")
         options = ["True", "False"]
-        self.bool_dropdown = tk.OptionMenu(root, self.bool_var, *options)
-        self.bool_dropdown.grid(row = 2, column = 1, padx = 5, pady = 5)
+        self.dropdown = tk.OptionMenu(root, self.text, *options)
+        self.dropdown.grid(row = 2, column = 1, padx = 5, pady = 5)
 
         # Bottom Buttons
         tk.Button(root, text = "Confirm", command=self.confirm).grid(row = 3, column = 1, padx = 5, pady = 5)
@@ -71,32 +71,24 @@ class MultiInputApp:
     # Methods to pick color or randomize
     def choose_color(self):
         color = colorchooser.askcolor(title="Choose color")[1]
-        if color:
-            self.color_var.set(color)
+        self.color.set(color)
     
     def random_color(self):
-        self.color_var.set(self.randomize_color())
-    
-    @staticmethod
-    def randomize_color():
-        return "#{:06x}".format(random.randrange(0, 2 ** 24))
+        color = "#{:06x}".format(random.randrange(0, 2 ** 24))
+        self.color.set(color)
 
     # Method for when confirm is pressed
     def confirm(self):
         # Check for valid number of iterations
-        try:
-            value = int(self.iter_var.get())
-            if not (self.min <= value <= self.max):
-                tk.messagebox.showerror("Invalid Input", f"Iterations must be between {self.min} and {self.max}.")
-                return
-            self.result = {
-                'color': self.color_var.get(),
-                'iterations': value,
-                'text_option': self.bool_var.get() == "True"
-            }
-        except ValueError:
-            tk.messagebox.showerror("Invalid Input", "Please enter a valid integer for iterations.")
+        value = int(self.iterations.get())
+        if not (self.min <= value <= self.max):
+            tk.messagebox.showerror("Invalid", f"Iterations must be between {self.min} and {self.max}.")
             return
+        self.result = {
+            'color': self.color.get(),
+            'iterations': value,
+            'text_option': self.text.get() == "True"
+        }
 
         self.root.destroy()
 
@@ -116,7 +108,7 @@ def get_input(title, default, min, max):
     max (int): Maximum value for iterations
     '''
     root = tk.Toplevel()
-    app = MultiInputApp(root, title, default, min, max)
+    app = Input(root, title, default, min, max)
     return app.result
 
 def make_button(x, y, txt, cmd):

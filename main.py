@@ -8,40 +8,41 @@ def draw():
     Draws a specified fractal
     '''
 
-    # Mandelbrot
-    if config.n == 1:
-        config.user_input = features.get_input("Parameters", 20, 15, 100)
-        if config.user_input is not None:
-            config.text_option = config.user_input['text_option']
-            fractals.Mandelbrot(config.text_option, config.user_input['color'])
-    
-    # Koch Snowflake
-    elif config.n == 2:
-        config.user_input = features.get_input("Parameters", 3, 2, 7)
-        if config.user_input is not None:
-            config.text_option = config.user_input['text_option']
-            fractals.KochSnowflake(config.text_option, config.user_input['color'])
+    match config.n:
+        # Mandelbrot
+        case 1:
+            config.user_input = features.get_input("Parameters", 20, 15, 100)
+            if config.user_input is not None:
+                config.text_option = config.user_input['text_option']
+                fractals.Mandelbrot(config.text_option, config.user_input['color'])
 
-    # Sierpinski Triangle
-    elif config.n == 3:
-        config.user_input = features.get_input("Parameters", 5, 1, 6)
-        if config.user_input is not None:
-            config.text_option = config.user_input['text_option']
-            fractals.SierpinskiTriangle(config.text_option, config.user_input['color'])
+        # Koch Snowflake
+        case 2:
+            config.user_input = features.get_input("Parameters", 3, 2, 7)
+            if config.user_input is not None:
+                config.text_option = config.user_input['text_option']
+                fractals.KochSnowflake(config.text_option, config.user_input['color'])
 
-    # Random Fractal
-    elif config.n == 4:
-        config.user_input = features.get_input("Parameters", 25000, 10000, 100000)
-        if config.user_input is not None:
-            config.text_option = config.user_input['text_option']
-            fractals.RandomFractal(config.text_option, config.user_input['color'])
+        # Sierpinski Triangle
+        case 3:
+            config.user_input = features.get_input("Parameters", 5, 1, 6)
+            if config.user_input is not None:
+                config.text_option = config.user_input['text_option']
+                fractals.SierpinskiTriangle(config.text_option, config.user_input['color'])
 
-    # Snowflake
-    elif config.n == 5:
-        config.user_input = features.get_input("Parameters", 5, 1, 10)
-        if config.user_input is not None:
-            config.text_option = config.user_input['text_option']
-            fractals.BasicSnowflake(config.text_option, config.user_input['color'])
+        # Random Fractal
+        case 4:
+            config.user_input = features.get_input("Parameters", 25000, 10000, 100000)
+            if config.user_input is not None:
+                config.text_option = config.user_input['text_option']
+                fractals.RandomFractal(config.text_option, config.user_input['color'])
+
+        # Snowflake
+        case 5:
+            config.user_input = features.get_input("Parameters", 5, 1, 10)
+            if config.user_input is not None:
+                config.text_option = config.user_input['text_option']
+                fractals.BasicSnowflake(config.text_option, config.user_input['color'])
 
 def reset():
     '''
