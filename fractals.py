@@ -318,3 +318,46 @@ def drawBasicSnowflake(t, length, iterations):
             t.backward(length)
             t.left(60)
 
+def TreeFractal(textOption = True, color = "brown", leafColor = "green"):
+    """
+    Draws a basic fractal pattern that looks like a tree
+
+    Parameters:
+    textOption (bool): Decides whether or not to put text in the drawing
+    color (string): Changes the color of the base lines in the fractal
+    leafColor (string): Changes the color of the edge lines in the fractal
+    """
+    # Setting up canvas
+    turtle.tracer(0, 0)
+    turtle.setup(800, 600)
+    turtle.bgcolor("#FFFFFF")
+    turtle.title("Tree Fractal")
+
+    t = turtle.Turtle()
+    t.color(color)
+
+    #Drawing initial stump
+    t.penup()
+    t.goto(0, -300)
+    t.setheading(90)
+    t.pendown()
+    t.forward(400)
+
+    drawBranch(t, 400 * 0.9, 20, leafColor, config.user_input["iterations"])
+
+    features.text(textOption, "Tree Fractal")
+
+def drawBranch(t, length, angle, color, iterations):
+    """
+    Draws a branch of the tree fractal
+    """
+    if iterations > 0:
+        t.color(color)
+        t.forward(length)
+        t.left(angle)
+        drawBranch(t, length * 0.9, angle, color, iterations - 1)
+        t.right(angle)
+        t.right(angle)
+        drawBranch(t, length * 0.9, angle, color, iterations - 1)
+        t.left(angle)
+

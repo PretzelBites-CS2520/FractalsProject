@@ -44,6 +44,13 @@ def draw():
                 config.text_option = config.user_input['text_option']
                 fractals.BasicSnowflake(config.text_option, config.user_input['color'])
 
+        # Snowflake
+        case 6:
+            config.user_input = features.get_input("Parameters", 5, 1, 10)
+            if config.user_input is not None:
+                config.text_option = config.user_input['text_option']
+                fractals.TreeFractal(config.text_option, config.user_input['color'])
+
 def reset():
     '''
     Resets the canvas
@@ -79,7 +86,7 @@ def setup_helper(val):
     Helper method to set global variable and call setup method
 
     Parameters:
-    val (int): Value from 1-4 correlating to which fractal the user chose
+    val (int): Value from 1-6 correlating to which fractal the user chose
     '''
     config.n = val
     setup()
@@ -99,6 +106,7 @@ def menu_setup():
     features.draw_image(-330, -30, Path("images/sierpinski.png"))
     features.draw_image(180, -30, Path("images/random.png"))
     features.draw_image(-55, -30, Path("images/basicsnowflake.png"))
+    #features.draw_image(-55, -220, Path("images/treefractal.png"))
 
     # Sets up the buttons
     features.make_button(-250, -100, "Mandelbrot Set", lambda: setup_helper(1))
@@ -106,6 +114,7 @@ def menu_setup():
     features.make_button(-250, 100, "Sierpinski Triangle", lambda: setup_helper(3))
     features.make_button(250, 100, "Random Fractal (EXP)", lambda: setup_helper(4))
     features.make_button(0, 100, "Basic Snowflake", lambda: setup_helper(5))
+    features.make_button(0, -100, "Tree Fractal", lambda: setup_helper(6))
     features.make_button(0, 200, "Exit Program", done)
 
 def main():
