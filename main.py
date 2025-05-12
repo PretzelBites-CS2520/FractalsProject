@@ -44,9 +44,9 @@ def draw():
                 config.text_option = config.user_input['text_option']
                 fractals.BasicSnowflake(config.text_option, config.user_input['color'])
 
-        # Snowflake
+        # Tree Fractal
         case 6:
-            config.user_input = features.get_input("Parameters", 5, 1, 10)
+            config.user_input = features.get_input("Parameters", 10, 1, 15)
             if config.user_input is not None:
                 config.text_option = config.user_input['text_option']
                 fractals.TreeFractal(config.text_option, config.user_input['color'])
@@ -106,7 +106,7 @@ def menu_setup():
     features.draw_image(-330, -30, Path("images/sierpinski.png"))
     features.draw_image(180, -30, Path("images/random.png"))
     features.draw_image(-55, -30, Path("images/basicsnowflake.png"))
-    #features.draw_image(-55, -220, Path("images/treefractal.png"))
+    features.draw_image(-60, -220, Path("images/treefractal.png"))
 
     # Sets up the buttons
     features.make_button(-250, -100, "Mandelbrot Set", lambda: setup_helper(1))
