@@ -19,4 +19,5 @@ Turtle Drawing Fractals Project for CS2520
     - ~~Buttons for user to interact with fractal generation (Draw, Reset, Invert, Back)~~
 ***
 ### Known Issues
-- 
+- When cloning into the repository, make sure that you are in the FractalsProject directory to allow the images of the main menu to load.
+- On Windows, the Random IFS Fractal does not load properly.
